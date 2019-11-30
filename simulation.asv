@@ -1,11 +1,11 @@
 clear;clc;
 number=4000;
-p1=50;p=60;
+p1=40;p=60;
 v1=10*rand(p1,1);
 v2=10*rand(p1,1);
 v1(p1+1:p)=0;
 v2(p1+1:p)=0;
-sigma=0.1*ones(1,60);
+sigma=1*ones(1,60);
 data1= mvnrnd(v1,sigma,number);
 data2= mvnrnd(v2,sigma,number);
 X=[data1;data2];
@@ -83,33 +83,3 @@ for i=1:length(plabel)
     end
 end
 error_rate3=length(el)/length(plabel)
-
-Xt=[X1;X3;X4;X5];
-ct=[c1;c3;c4;c5];
-svmmodel4=fitcsvm(Xt,ct,'KernelFunction','gaussian');
-plabel=predict(svmmodel4,X2);
-el=[];
-k=0;
-for i=1:length(plabel)
-    if plabel(i)~=c2(i)
-        k=k+1;
-        el(k)=i;
-    end
-end
-error_rate4=length(el)/length(plabel)
-
-Xt=[X2;X3;X4;X5];
-ct=[c2;c3;c4;c5];
-svmmodel5=fitcsvm(Xt,ct,'KernelFunction','gaussian');
-plabel=predict(svmmodel5,X1);
-el=[];
-k=0;
-for i=1:length(plabel)
-    if plabel(i)~=c1(i)
-        k=k+1;
-        el(k)=i;
-    end
-end
-error_rate5=length(el)/length(plabel)
-
-error_avg=(error_rate1+error_rate2+error_rate3+error_rate4+error_rate5)/5

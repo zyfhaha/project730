@@ -1,24 +1,14 @@
-clear;clc;
-number=4000;
-p1=50;p=60;
-v1=10*rand(p1,1);
-v2=10*rand(p1,1);
-v1(p1+1:p)=0;
-v2(p1+1:p)=0;
-sigma=0.1*ones(1,60);
-data1= mvnrnd(v1,sigma,number);
-data2= mvnrnd(v2,sigma,number);
-X=[data1;data2];
-class(1:number,1)=1;
-class(number+1:number*2,1)=0;
-Y=nominal(class);
+clc;clear;
+loaddata_spam;
+
+X=Xfs;   %If you don't want to use feature selection. delete this line.
 
 X1=[];c1=[];
 X2=[];c2=[];
 X3=[];c3=[];
 X4=[];c4=[];
 X5=[];c5=[];
-for i=1:number*2
+for i=1:length(Y)
     ra=rand(1,1);
     if ra<0.2
         X1=[X1;X(i,:)];
